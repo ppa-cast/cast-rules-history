@@ -28,77 +28,6 @@ pre {line-height: 0.5em;}
   animation: spinner .6s linear infinite;
 }
 
-/*
- * table
- */
- 
-.common-table {
-    /*width: 100%;*/
-    color: black;
-    background:white;
-    border: none;
-    border-collapse: collapse;    
-}
-
-.common-table tr {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #c3c1c1;
-}
-
-/*
-.common-table tr:nth-child(odd){
-    background:#d9e5f7;
-}
-*/
-.common-table td {
-    /*word-break: break-word;*/
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-left:10px;        
-    padding-right:10px;        
-    border-right-style: solid;
-    border-right-width: 1px;
-    border-right-color: #c3c1c1;
-}
-
-.common-table td:nth-child(1){
-    text-align:center;
-    padding-left:2px;        
-    padding-right:2px;        
-}
-
-.common-table td:nth-child(2){
-    text-align:center;
-    border-right-style: unset;
-    padding-left:2px;        
-    padding-right:0px;        
-}
-
-.common-table td:nth-child(4){
-    text-align:right;
-    min-width: 50px;
-}
-
-.common-table td:nth-child(5){
-    text-align:right;
-    min-width: 50px;
-} 
- 
-.common-table td:nth-child(6){
-    text-align:right;
-    min-width: 50px;
-} 
-
-.common-table th  {
-    position: sticky;
-    top: -1px;
-    z-index: 1000;
-    background-color: #d9e5f7;
-    border-width: 1px;
-    border-color: #c3c1c1;    
-}   
-
 </style>
 </head>
 <body>
@@ -127,7 +56,6 @@ var render = (json, template) => {
                 $("<pre>        <span style='color:#fc9463;'>DETACH RULE </span><span style='color:#72e0d1;'>#" +  it.id + ": " +  it.name + "</span> </pre>").appendTo(outputElement);                      });
         });
     });
-    //$('#output').html(json);
 }
 
 var unavailable = (e) => {

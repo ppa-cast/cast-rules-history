@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+
+<style>
+body { background-color: #001628; color: white;   font: Inconsolata, monospace;}
+
+pre {line-height: 0.5em;}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #000;
+  animation: spinner .6s linear infinite;
+}
+
+/*
+ * table
+ */
+ 
+.common-table {
+    /*width: 100%;*/
+    color: black;
+    background:white;
+    border: none;
+    border-collapse: collapse;    
+}
+
+.common-table tr {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c3c1c1;
+}
+
+/*
+.common-table tr:nth-child(odd){
+    background:#d9e5f7;
+}
+*/
+.common-table td {
+    /*word-break: break-word;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left:10px;        
+    padding-right:10px;        
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #c3c1c1;
+}
+
+.common-table td:nth-child(1){
+    text-align:center;
+    padding-left:2px;        
+    padding-right:2px;        
+}
+
+.common-table td:nth-child(2){
+    text-align:center;
+    border-right-style: unset;
+    padding-left:2px;        
+    padding-right:0px;        
+}
+
+.common-table td:nth-child(4){
+    text-align:right;
+    min-width: 50px;
+}
+
+.common-table td:nth-child(5){
+    text-align:right;
+    min-width: 50px;
+} 
+ 
+.common-table td:nth-child(6){
+    text-align:right;
+    min-width: 50px;
+} 
+
+.common-table th  {
+    position: sticky;
+    top: -1px;
+    z-index: 1000;
+    background-color: #d9e5f7;
+    border-width: 1px;
+    border-color: #c3c1c1;    
+}   
+
+</style>
+</head>
+<body>
+<div id="spinner" class="spinner"></div>
+<div id="output"></div>
+
+<script>
+
+var render = (json, template) => {
+    $('#spinner').removeClass('spinner');
+
+    let outputElement = $("#output");
+        Object.keys(json).forEach((it) => {
+        let extensionName = it;
+        var versions = json[it];
+        $("<pre><span style='color:#f5d67b;'>" + extensionName + "</span></pre>").appendTo(outputElement);                              
+        versions.forEach((it)=> {
+            let versionName = it.version;
+            let addedRules = it.addedRules;
+            $("<pre>    <span style='color:#f5d67b;'>" + versionName +"</span></pre>").appendTo(outputElement);                      
+            addedRules.forEach((it) => {
+                $("<pre>        <span style='color:#fc9463;'>ADD RULE    </span><span style='color:#72e0d1;'>#" +  it.id + ": " +  it.name + "</span> </pre>").appendTo(outputElement);          
+            });
+            let detachedRules = it.detachedRules;
+            detachedRules.forEach((it) => {
+                $("<pre>        <span style='color:#fc9463;'>DETACH RULE </span><span style='color:#72e0d1;'>#" +  it.id + ": " +  it.name + "</span> </pre>").appendTo(outputElement);                      });
+        });
+    });
+    //$('#output').html(json);
+}
+
+var unavailable = (e) => {
+    $('#spinner').removeClass('spinner');
+    $('#output').html('Service not available, please check <a href="https://technologies.castsoftware.com">https://technologies.castsoftware.com</a>');
+}
+
+$.when( $.ajax( "https://technologies.castsoftware.com/rest/AIP/rules-history" ))
+  .then( render, unavailable );
+
+</script> 
+</body>

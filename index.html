@@ -49,11 +49,14 @@ var render = (json, template) => {
             let addedRules = it.addedRules;
             $("<pre>    <span style='color:#f5d67b;'>" + versionName +"</span></pre>").appendTo(outputElement);                      
             addedRules.forEach((it) => {
-                $("<pre>        <span style='color:#fc9463;'>ADD RULE    </span><span style='color:#72e0d1;'>#" +  it.id + ": " +  it.name + "</span> </pre>").appendTo(outputElement);          
+                let preElement = $("<pre>        <span style='color:#fc9463;'>ADDED    </span></pre>").appendTo(outputElement);
+                $("<span style='color:#72e0d1;'></span>").appendTo(preElement).text("#" +  it.id + ": " +  it.name);
             });
             let detachedRules = it.detachedRules;
             detachedRules.forEach((it) => {
-                $("<pre>        <span style='color:#fc9463;'>DETACH RULE </span><span style='color:#72e0d1;'>#" +  it.id + ": " +  it.name + "</span> </pre>").appendTo(outputElement);                      });
+                let preElement = $("<pre>        <span style='color:#fc9463;'>DETACHED </span></pre>").appendTo(outputElement);
+                $("<span style='color:#72e0d1;'></span>").appendTo(preElement).text("#" +  it.id + ": " +  it.name);      
+            });
         });
     });
 }
